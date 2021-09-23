@@ -6,7 +6,7 @@ You can use this program to interact easily with EdgeStack backend.
 This program behaves just like every other CLI program: prints the main output in *stdout* and the errors in *stderr*.
 The program prints the events in realtime and returns the result when the process is finished.
 
-Under the hood we use HTTP and socket.io (websockets) to catch events in realtime from the backend. Feel free to reproduce this program in your favourite programming language or just spawn it!
+Under the hood we use HTTP and socket.io (websockets) to catch events in realtime from the backend. Feel free to reproduce and port this program in your favourite programming language or just spawn it using your favourite I/O library!
 
 Also, the program supports two types of authentication:
 - JWT based: this allows you to authenticate using your credentials and your token
@@ -31,17 +31,18 @@ Now run: ```netter``` on your terminal to use the program.
 
 | Source code
 ----
-## Install dependencies (optional)
+## Install dependencies
 
-In order to compile this project, stay on your home directory and install: 
-- ```node.js```
-- ```jq``` (https://stedolan.github.io/jq/download/). You should pipe the output to ```jq``` for better visualization of the query result.
+In order to compile this project, install these software using your OS-specific package managers/installers: 
+- ```node.js``` : https://nodejs.org/it/
+- ```jq``` : https://stedolan.github.io/jq/download/ 
+
+Tips: 
+- You should pipe the output to ```jq``` for better visualization of the query result, appending ```| jq '.'``` to your command.
 
 Then go into the root folder of this project and execute:
 - ```npm i``` 
 - ```npm run compile```
-
-... that's it.
 
 ## Setup the environment
 
