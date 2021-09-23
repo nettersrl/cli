@@ -1,0 +1,19 @@
+{
+  "name": "netter-edgestack-cli",
+  "version": "1.0.0",
+  "description": "CLI to interact with Netter EdgeStack platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nettersrl/cli.git"
+  },
+  "author": "Alessandro Bolletta",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/nettersrl/cli/issues"
+  },
+  "homepage": "https://github.com/nettersrl/cli#readme"
+}
