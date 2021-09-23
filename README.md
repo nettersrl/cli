@@ -1,4 +1,4 @@
-[<img src="https://www.netter.io/assets/images/logo_netter_intero.png" style="width:250px;background-color:#333333">](https://www.netter.io/)
+[<img src="https://www.netter.io/assets/images/logo_netter_intero_sfondonero.png" style="width:250px;">](https://www.netter.io/)
 
 # Netter EdgeStack Platform CLI
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
