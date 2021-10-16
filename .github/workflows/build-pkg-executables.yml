@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
     - run: npm install
     - name: Compile ts source to js
       run: npm run compile
@@ -25,7 +25,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        release_name: Nightly Release ${{ env.MY_DATE }}
+        tag_name: ${{ env.MY_DATE }}
+        release_name: Release ${{ env.MY_DATE }}
         body: ${{ github.event.head_commit.message }}
         draft: false
         prerelease: false

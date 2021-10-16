@@ -2,7 +2,7 @@
 
 # Netter EdgeStack Platform CLI
 
-[![CDUploadRelease Actions Status](https://github.com/{userName}/{repoName}/workflows/{workflowName}/badge.svg)](https://github.com/{userName}/{repoName}/actions)
+[![CDUploadRelease Actions Status](https://github.com/nettersrl/cli/workflows/CDUploadRelease/badge.svg)](https://github.com/nettersrl/cli/actions)
 
 You can use this program to interact easily with EdgeStack backend.
 This program behaves just like every other CLI program: prints the main output in *stdout* and the errors in *stderr*.
