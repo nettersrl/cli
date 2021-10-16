@@ -1,4 +1,4 @@
-name: Basic CI
+name: CDUploadRelease
 
 on:
   push:
@@ -17,6 +17,8 @@ jobs:
       run: npm run compile
     - name: Build for all targets
       run: npm run build
+    - name: Get actual date
+      run: echo "MY_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -24,11 +26,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Changes in this Release
-          - First Change
-          - Second Change
+        release_name: Nightly Release ${{ env.MY_DATE }}
+        body: ${{ github.event.head_commit.message }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
@@ -38,6 +37,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./pkg_output/netter-edgestack-cli-linux
-        asset_name: Netter CLI - Linux AMD64
+        asset_paths: '["./pkg_output/netter-edgestack-cli*"]'
         asset_content_type: application/octet-stream
