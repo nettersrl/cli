@@ -96,9 +96,10 @@ export class SessionStrategy extends APIStrategy {
     * @function stop
     */
     private async stop(): Promise<ISessionReply> {
-        const bodyReceived: { id: string } = this.bodyInputFromUser as { id: string };
-        const startSessionRequest = await httpRequest("post", `api/v1/session/sessions/${bodyReceived.id}/stop`);
-        const jobId: string = startSessionRequest.data["job_id"];
+        const bodyReceived: { id: string; force?: boolean } = this.bodyInputFromUser as { id: string; force?: boolean };
+        const lastPartOfQuery = bodyReceived.force == undefined || bodyReceived.force === false ? "stop" : "forced_stop";
+        const stopSessionRequest = await httpRequest("post", `api/v1/session/sessions/${bodyReceived.id}/${lastPartOfQuery}`);
+        const jobId: string = stopSessionRequest.data["job_id"];
         return await SocketIOHandler.getInstance().addJobAndWait(jobId);
     }
 

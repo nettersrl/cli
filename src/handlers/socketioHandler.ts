@@ -17,8 +17,8 @@ export class SocketIOHandler {
             this.socket = io(`https://api.${TENANT_FQDN_NAME}/enterprises`, {
                 transports: ["websocket"],
                 auth: {
-                    type: "user_key",
-                    token: SECRET_KEY // consumer_api_key in database
+                    type: "secret_user_key",
+                    token: SECRET_KEY
                 },
                 forceNew: false
             });
@@ -31,8 +31,6 @@ export class SocketIOHandler {
                 const job = this.jobs.find(elm => elm.id === notificationMessage.jobId)
                 if (job != undefined) {
                     notificationMessage["exit_code"] = notification.exit_code;
-                    //job.promiseOut.resolve(notificationMessage);
-                    // notification.exit_code === "completed" ? job.promiseOut.resolve(notificationMessage.sessionId) : job.promiseOut.reject(new Error(`${notificationMessage.sessionId} error on ${notificationMessage.jobId}`));
                     notification.exit_code === "completed" ? job.promiseOut.resolve(notificationMessage) : job.promiseOut.reject(notificationMessage);
                 }
             });

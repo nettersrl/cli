@@ -2,11 +2,15 @@ import axios, { AxiosResponse, Method } from 'axios';
 import { TENANT_FQDN_NAME, SECRET_KEY } from '../settings';
 import { ISessionMetadata, ISessionSession } from '../types/tsessions';
 
-export async function httpRequest(method: Method, url: string, body?: object, etag?: string) {
+export async function httpRequest(method: Method, url: string, body?: object, etag?: string, additionalHeaderInfo?: Object) {
 
     const headers = {
         'X-Netter-Auth-Type': 'secret_user_key',
         'Authorization': `Bearer ${SECRET_KEY}`
+    }
+
+    if (additionalHeaderInfo != undefined) {
+        Object.assign(headers, additionalHeaderInfo);
     }
 
     const reqUrl: string = `https://api.${TENANT_FQDN_NAME}/${url}`;
@@ -76,17 +80,9 @@ export function debugLog(message: string, type: "error" | "warning" | "success",
 }
 
 export function productionLog(message: string, type: "error" | "warning" | "success"): void {
-    let color = "";
-    switch (type) {
-        case "error":
-            color = "\x1b[31m";
-            break
-        case "success":
-            color = "\x1b[32m";
-            break;
-        case "warning":
-            color = "\x1b[33m";
-            break;
+    if (type === "error") {
+        console.error(`${message}`)
+    } else {
+        console.log(`${message}`);
     }
-    console.log(`${message}`);
 }

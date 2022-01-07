@@ -1,5 +1,8 @@
 import { TENANT_FQDN_NAME } from "../settings";
 
+/**
+ * TO DO: IMPLEMENT USER AUTH
+ */
 export class AuthenticationHandler {
 
     private loginUrl: string;
