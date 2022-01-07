@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "CLI to interact with Netter EdgeStack platform",
   "main": "index.js",
+  "bin": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "rm -f -r ./dist/* && tsc -p ./tsconfig.json",
-    "start": "node ./dist/index.js"
+    "start": "node ./dist/index.js",
+    "build": "MAKE_JOB_COUNT=4 ./node_modules/.bin/pkg -C Brotli package.json"
   },
   "repository": {
     "type": "git",
@@ -23,8 +25,8 @@
   },
   "devDependencies": {
     "@types/node": "^16.10.3",
-    "typescript": "^3.8.3",
-    "pkg": "^5.3.0"
+    "pkg": "^5.3.3",
+    "typescript": "^3.8.3"
   },
   "author": "Alessandro Bolletta",
   "license": "GPL-3.0-or-later",
@@ -36,7 +38,9 @@
       "node_modules/**/*.js"
     ],
     "targets": [
-      "node14-linux-x64"
+      "node16-linux-x64",
+      "node16-win-x64",
+      "node16-macos-x64"
     ],
     "scripts": "dist/**/*.js",
     "outputPath": "pkg_output"

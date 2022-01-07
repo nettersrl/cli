@@ -2,15 +2,19 @@
 
 # Netter EdgeStack Platform CLI
 
-You can use this program to interact easily with EdgeStack backend.
-This program behaves just like every other CLI program: prints the main output in *stdout* and the errors in *stderr*.
-The program prints the events in realtime and returns the result when the process is finished.
+[![CDUploadRelease Actions Status](https://github.com/nettersrl/cli/workflows/CDUploadRelease/badge.svg)](https://github.com/nettersrl/cli/actions)
 
-Under the hood we use HTTP and socket.io (websockets) to catch events in realtime from the backend. Feel free to reproduce and port this program in your favourite programming language or just spawn it using your favourite I/O library!
+You can use this program to interact easily with EdgeStack backend.
+This program behaves just like every other Unix CLI program: prints the main output in *stdout* and the errors in *stderr*.
+The program prints the events in realtime and returns the result when the process is finished an a synchronous way.
+Inputs are taken in *stdin* and expected as one-line JSON messages.
+
+Under the hood we use HTTP and socket-io (websockets) to catch events in realtime from the backend. Feel free to reproduce and port this program in your favourite programming language or just spawn it using your favourite I/O library!
 
 Also, the program supports two types of authentication:
-- JWT based: this allows you to authenticate using your credentials and your token
-- API key based: this allows you to call the backend without the need to provide credentials when the JWT session is not active
+
+- Consumer API key based: this allows you to call the backend, you should use this in cases where CLI program runs in your own environment
+- Secret API key based: this allows you to call the backend but this is used just in Netter internal procedures
 
 # Setup
 
@@ -21,7 +25,6 @@ You can find compiled executables here:
 - Windows x64: 
 - Linux x64: 
 - MacOS x64:
-- MacOS ARM:
 
 You can create a shortcut to call the CLI utility using ```netter```. You should move the downloaded file to:
 - Linux and MacOS: ```sudo mv <file> /usr/local/bin/netter && sudo chmod +x /usr/local/bin/netter```

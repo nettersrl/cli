@@ -1,0 +1,59 @@
+name: CDUploadRelease
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - run: npm install
+    - name: Compile ts source to js
+      run: npm run compile
+    - name: Build for all targets
+      run: npm run build
+    - name: Get actual date
+      run: echo "MY_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ env.MY_DATE }}
+        release_name: Release ${{ env.MY_DATE }}
+        body: ${{ github.event.head_commit.message }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset - Linux AMD64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./pkg_output/netter-edgestack-cli-linux
+        asset_name: netter-edgestack-cli-linux
+        asset_content_type: application/octet-stream
+    - name: Upload Release Asset - Windows AMD64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./pkg_output/netter-edgestack-cli-win.exe
+        asset_name: netter-edgestack-cli-win.exe
+        asset_content_type: application/octet-stream
+    - name: Upload Release Asset - MacOS AMD64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./pkg_output/netter-edgestack-cli-macos
+        asset_name: netter-edgestack-cli-macos
+        asset_content_type: application/octet-stream
